@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
 		Field[] fields = R.drawable.class.getDeclaredFields();
 		List<String> list = new ArrayList<String>();
 		for (Field field : fields) {
-			if (!"icon".equals(field.getName())) {
+			if (!"ic_launcher".equals(field.getName())&&!"icon".equals(field.getName())) {
 				try {
 					list.add(String.valueOf(field.getInt(field.getName())));
 					imaglist.add(field.getInt(field.getName()));
