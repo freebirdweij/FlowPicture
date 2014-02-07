@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.view.View;
 import com.origamilabs.library.views.StaggeredGridView;
 import com.weij.pic.flowpicture.R;
 import com.weij.pic.flowpicture.views.CircleViewFlow;
+import com.weij.pic.flowpicture.views.ImageViewFlipper;
 
 public class MainActivity extends Activity {
 
@@ -64,11 +66,16 @@ public class MainActivity extends Activity {
 			public void onItemClick(StaggeredGridView parent, View view,
 					int position, long id) {
 				Intent intent = new Intent(MainActivity.this,
-						CircleViewFlow.class);
+						ImageViewFlipper.class);
 				Bundle bundle = new Bundle();
-				bundle.putInt("position", position);
+				SharedPreferences indexPrefs = getSharedPreferences("currentIndex",
+						MODE_PRIVATE);
+				
 				bundle.putIntegerArrayList("imaglist", imaglist);
 				intent.putExtras(bundle);
+				SharedPreferences.Editor indexEditor = indexPrefs.edit();
+				indexEditor.putInt("currentIndex", position);
+				indexEditor.commit();
 				startActivity(intent);
 			}
 		});
