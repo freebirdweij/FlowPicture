@@ -20,6 +20,7 @@ import java.util.zip.GZIPOutputStream;
 
 import com.weij.pic.flowpicture.R;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +31,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -52,6 +54,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+@TargetApi(Build.VERSION_CODES.FROYO)
 public class ImageViewFlipper extends TouchActivity {
 	
 	private static final int EXIT = 0;
@@ -89,7 +92,6 @@ public class ImageViewFlipper extends TouchActivity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		setContentView(R.layout.main);
-		ImageView iv = (ImageView) findViewById(R.id.zero);
 		/*iv.setOnTouchListener(this);
 		findViewById(R.id.one).setOnTouchListener(this);
 		findViewById(R.id.two).setOnTouchListener(this);*/
@@ -131,9 +133,9 @@ public class ImageViewFlipper extends TouchActivity {
 		images = new Integer[result.size()];
 		images = result.toArray(images);
 		
-		/*if (ImageList == null) {
+		if (images == null) {
 			quit();
-		}*/
+		}
 		
 		SharedPreferences indexPrefs = getSharedPreferences("currentIndex",
 				MODE_PRIVATE);
@@ -164,6 +166,7 @@ public class ImageViewFlipper extends TouchActivity {
 		//iv.setImageDrawable(d);
 		//iv.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.FILL_PARENT));;
 		//Bitmap bitmap =  readBitMap(this,images[currentIndex]);
+		ImageView iv = (ImageView) findViewById(R.id.zero);
 		Drawable d = Drawable.createFromStream(getResources().openRawResource(images[currentIndex]), null);
 		iv.setImageDrawable(d);
 		resetImage(iv,d);
@@ -447,19 +450,4 @@ public class ImageViewFlipper extends TouchActivity {
 		System.exit(0);
 	}
 
-	/**
-     * 以最省内存的方式读取本地资源的图片
-	 * @param context
-	 * @param resId
-	 * @return
-	 */  
-	 public static Bitmap readBitMap(Context context, int resId){  
-	   BitmapFactory.Options opt = new BitmapFactory.Options();  
-	   opt.inPreferredConfig = Bitmap.Config.RGB_565;   
-	  opt.inPurgeable = true;  
-	  opt.inInputShareable = true;  
-	  //获取资源图片  
-	  InputStream is = context.getResources().openRawResource(resId);  
-	   return BitmapFactory.decodeStream(is,null,opt);  
-	  }
 }

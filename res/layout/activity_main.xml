@@ -11,7 +11,7 @@
 
    <com.origamilabs.library.views.StaggeredGridView
        android:id="@+id/gridView1"
-       android:layout_width="5000dp"
+       android:layout_width="6000dp"
        android:layout_height="match_parent"
        android:scrollbars="horizontal"
        staggered:drawSelectorOnTop="true"

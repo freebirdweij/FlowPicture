@@ -1,12 +1,16 @@
 package com.weij.pic.folwpicture;
 
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -40,7 +44,7 @@ public class MainActivity extends Activity {
 		Field[] fields = R.drawable.class.getDeclaredFields();
 		List<String> list = new ArrayList<String>();
 		for (Field field : fields) {
-			if (!"ic_launcher".equals(field.getName())&&!"icon".equals(field.getName())) {
+			if (!"ic_launcher".equals(field.getName())&&!"icon".equals(field.getName())&&!"wait".equals(field.getName())) {
 				try {
 					list.add(String.valueOf(field.getInt(field.getName())));
 					imaglist.add(field.getInt(field.getName()));
@@ -87,5 +91,20 @@ public class MainActivity extends Activity {
 		//getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
+	/**
+     * 以最省内存的方式读取本地资源的图片
+	 * @param context
+	 * @param resId
+	 * @return
+	 */  
+	 public static Bitmap readBitMap(Context context, int resId){  
+	   BitmapFactory.Options opt = new BitmapFactory.Options();  
+	   opt.inPreferredConfig = Bitmap.Config.RGB_565;   
+	  opt.inPurgeable = true;  
+	  opt.inInputShareable = true;  
+	  //获取资源图片  
+	  InputStream is = context.getResources().openRawResource(resId);  
+	   return BitmapFactory.decodeStream(is,null,opt);  
+	  }
 
 }
