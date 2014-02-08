@@ -442,8 +442,8 @@ public class ImageViewFlipper extends TouchActivity {
 		indexEditor.putInt("currentIndex", 0);
 		indexEditor.commit();
 		
-		File settings = new File(DATA_FILE);
-		settings.delete();
+		//File settings = new File(DATA_FILE);
+		//settings.delete();
 		finish();
 		int pid = android.os.Process.myPid();
 		android.os.Process.killProcess(pid);

@@ -59,9 +59,17 @@ public class MainActivity extends Activity {
 		}
 		urls = new String[list.size()];
 		urls = list.toArray(urls);
+		
+		String[] urlst = new String[6];
+		urlst[0] = urls[0];
+		urlst[1] = urls[1];
+		urlst[2] = urls[2];
+		urlst[3] = urls[3];
+		urlst[4] = urls[4];
+		urlst[5] = urls[5];
 
 		StaggeredAdapter adapter = new StaggeredAdapter(MainActivity.this,
-				R.id.imageView1, urls);
+				R.id.imageView1, urlst);
 		gview.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
 		gview.setOnItemClickListener(new StaggeredGridView.OnItemClickListener() {
