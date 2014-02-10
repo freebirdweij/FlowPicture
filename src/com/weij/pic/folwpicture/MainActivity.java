@@ -12,15 +12,21 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.HorizontalScrollView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.RadioGroup.LayoutParams;
+import android.widget.RelativeLayout;
 
 import com.origamilabs.library.views.StaggeredGridView;
 import com.weij.pic.flowpicture.R;
 import com.weij.pic.flowpicture.views.CircleViewFlow;
 import com.weij.pic.flowpicture.views.ImageViewFlipper;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnScrollListener{
 
 	int time = 5;
 	private StaggeredGridView gview;
@@ -40,6 +46,8 @@ public class MainActivity extends Activity {
 
 		gview.setPadding(margin, 0, margin, 0); // have the margin on the sides
 												// as well
+		HorizontalScrollView hview = (HorizontalScrollView) gview.getParent().getParent();
+		//hview.setOnTouchListener(this);
 
 		Field[] fields = R.drawable.class.getDeclaredFields();
 		List<String> list = new ArrayList<String>();
@@ -60,13 +68,18 @@ public class MainActivity extends Activity {
 		urls = new String[list.size()];
 		urls = list.toArray(urls);
 		
-		String[] urlst = new String[6];
+		String[] urlst = new String[8];
 		urlst[0] = urls[0];
 		urlst[1] = urls[1];
 		urlst[2] = urls[2];
 		urlst[3] = urls[3];
 		urlst[4] = urls[4];
 		urlst[5] = urls[5];
+		urlst[6] = urls[6];
+		urlst[7] = urls[7];
+		DisplayMetrics dm = getResources().getDisplayMetrics();
+		gview.setLayoutParams(new RelativeLayout.LayoutParams(dm.widthPixels,LayoutParams.MATCH_PARENT));
+		gview.setColumnCount(2);
 
 		StaggeredAdapter adapter = new StaggeredAdapter(MainActivity.this,
 				R.id.imageView1, urlst);
@@ -114,5 +127,17 @@ public class MainActivity extends Activity {
 	  InputStream is = context.getResources().openRawResource(resId);  
 	   return BitmapFactory.decodeStream(is,null,opt);  
 	  }
+
+	@Override
+	public void onScroll(AbsListView arg0, int arg1, int arg2, int arg3) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onScrollStateChanged(AbsListView arg0, int arg1) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
