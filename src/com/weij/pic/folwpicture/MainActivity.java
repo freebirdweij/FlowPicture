@@ -14,7 +14,9 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.AbsListView;
 import android.widget.HorizontalScrollView;
 import android.widget.AbsListView.OnScrollListener;
@@ -26,7 +28,7 @@ import com.weij.pic.flowpicture.R;
 import com.weij.pic.flowpicture.views.CircleViewFlow;
 import com.weij.pic.flowpicture.views.ImageViewFlipper;
 
-public class MainActivity extends Activity implements OnScrollListener{
+public class MainActivity extends Activity implements OnTouchListener{
 
 	int time = 5;
 	private StaggeredGridView gview;
@@ -46,8 +48,9 @@ public class MainActivity extends Activity implements OnScrollListener{
 
 		gview.setPadding(margin, 0, margin, 0); // have the margin on the sides
 												// as well
-		HorizontalScrollView hview = (HorizontalScrollView) gview.getParent().getParent();
+		//HorizontalScrollView hview = (HorizontalScrollView) gview.getParent().getParent();
 		//hview.setOnTouchListener(this);
+		gview.setOnTouchListener(this);
 
 		Field[] fields = R.drawable.class.getDeclaredFields();
 		List<String> list = new ArrayList<String>();
@@ -129,15 +132,10 @@ public class MainActivity extends Activity implements OnScrollListener{
 	  }
 
 	@Override
-	public void onScroll(AbsListView arg0, int arg1, int arg2, int arg3) {
+	public boolean onTouch(View v, MotionEvent event) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
-	@Override
-	public void onScrollStateChanged(AbsListView arg0, int arg1) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
