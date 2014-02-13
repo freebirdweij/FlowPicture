@@ -158,7 +158,7 @@ public class MainActivity extends Activity implements OnTouchListener,OnGestureL
 	@Override
 	public boolean onDown(MotionEvent e) {
 		// TODO Auto-generated method stub
-		Log.i("MyGesture", "onDown");  
+		//Log.i("MyGesture", "onDown");  
 		  
         //Toast.makeText(this, "onDown", Toast.LENGTH_SHORT).show();  
   
@@ -183,12 +183,12 @@ public class MainActivity extends Activity implements OnTouchListener,OnGestureL
         // 触发条件 ：  
   
         // X轴的坐标位移大于FLING_MIN_DISTANCE，且移动速度大于FLING_MIN_VELOCITY个像素/秒  
-		Toast.makeText(this, "Fling", Toast.LENGTH_LONG).show();
+		//Toast.makeText(this, "Fling", Toast.LENGTH_LONG).show();
   
-        final int FLING_MIN_DISTANCE = 10, FLING_MIN_VELOCITY = 200;  
+        /*final int FLING_MIN_DISTANCE = 10, FLING_MIN_VELOCITY = 200;  
   
         if (e1.getX() - e2.getX() > FLING_MIN_DISTANCE  
-                /*&& Math.abs(velocityX) > FLING_MIN_VELOCITY*/)  
+                && Math.abs(velocityX) > FLING_MIN_VELOCITY)  
   
         {  
   
@@ -201,7 +201,7 @@ public class MainActivity extends Activity implements OnTouchListener,OnGestureL
         }  
   
         else if (e2.getX() - e1.getX() > FLING_MIN_DISTANCE  
-                /*&& Math.abs(velocityX) > FLING_MIN_VELOCITY*/)  
+                && Math.abs(velocityX) > FLING_MIN_VELOCITY)  
   
         {  
   
@@ -211,18 +211,18 @@ public class MainActivity extends Activity implements OnTouchListener,OnGestureL
   
             Toast.makeText(this, "Fling Right", Toast.LENGTH_SHORT).show();  
   
-        }  
+        }*/  
   
-        return true;  
+        return false;  
 	}
 
 	 // 用户长按触摸屏，由多个MotionEvent ACTION_DOWN触发 
 	@Override
 	public void onLongPress(MotionEvent e) {
 		// TODO Auto-generated method stub
-		Log.i("MyGesture", "onLongPress");  
+		//Log.i("MyGesture", "onLongPress");  
 		  
-        Toast.makeText(this, "onLongPress", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "onLongPress", Toast.LENGTH_SHORT).show();
         
 	}
 
@@ -231,11 +231,28 @@ public class MainActivity extends Activity implements OnTouchListener,OnGestureL
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
 			float distanceY) {
 		// TODO Auto-generated method stub
-		 Log.i("MyGesture", "onScroll");  
+		 //Log.i("MyGesture", "onScroll");  
 		  
-	        Toast.makeText(this, "onScroll", Toast.LENGTH_SHORT).show();  
+	        //Toast.makeText(this, "onScroll", Toast.LENGTH_SHORT).show(); 
+		if(distanceX>=distanceY){
+			String[] urlst = new String[8];
+			urlst[0] = urls[8];
+			urlst[1] = urls[9];
+			urlst[2] = urls[10];
+			urlst[3] = urls[11];
+			urlst[4] = urls[12];
+			urlst[5] = urls[13];
+			urlst[6] = urls[14];
+			urlst[7] = urls[15];
+
+			StaggeredAdapter adapter = new StaggeredAdapter(MainActivity.this,
+					R.id.imageView1, urlst);
+			gview.setAdapter(adapter);
+			adapter.notifyDataSetChanged();
+			
+		}
 	  
-	        return false; 
+	        return true; 
 	}
 
 	/*        
@@ -244,18 +261,18 @@ public class MainActivity extends Activity implements OnTouchListener,OnGestureL
      */ 
 	@Override
 	public void onShowPress(MotionEvent e) {
-		 Log.i("MyGesture", "onShowPress");  
+		 //Log.i("MyGesture", "onShowPress");  
 		  
-	        Toast.makeText(this, "onShowPress", Toast.LENGTH_SHORT).show();  
+	        //Toast.makeText(this, "onShowPress", Toast.LENGTH_SHORT).show();  
 	}
 
 	// 用户（轻触触摸屏后）松开，由一个1个MotionEvent ACTION_UP触发 
 	@Override
 	public boolean onSingleTapUp(MotionEvent e) {
 		// TODO Auto-generated method stub
-		Log.i("MyGesture", "onSingleTapUp");  
+		//Log.i("MyGesture", "onSingleTapUp");  
 		  
-        Toast.makeText(this, "onSingleTapUp", Toast.LENGTH_SHORT).show();  
+        //Toast.makeText(this, "onSingleTapUp", Toast.LENGTH_SHORT).show();  
   
         return false;
 	}
