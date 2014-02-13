@@ -55,13 +55,14 @@ public class MainActivity extends Activity implements OnTouchListener,OnGestureL
 		//HorizontalScrollView hview = (HorizontalScrollView) gview.getParent().getParent();
 		//hview.setOnTouchListener(this);
 		gview.setOnTouchListener(this);
-		gview.setFocusable(true);  
+		//gview.setFocusable(true);  
 		  
 		gview.setClickable(true);  
   
-		gview.setLongClickable(true);  
+		//gview.setLongClickable(true);  
   
-        mGestureDetector.setIsLongpressEnabled(true);
+        //mGestureDetector.setIsLongpressEnabled(true);
+		
 
 		Field[] fields = R.drawable.class.getDeclaredFields();
 		List<String> list = new ArrayList<String>();
@@ -159,7 +160,7 @@ public class MainActivity extends Activity implements OnTouchListener,OnGestureL
 		// TODO Auto-generated method stub
 		Log.i("MyGesture", "onDown");  
 		  
-        Toast.makeText(this, "onDown", Toast.LENGTH_SHORT).show();  
+        //Toast.makeText(this, "onDown", Toast.LENGTH_SHORT).show();  
   
         return true;  
 	}
@@ -182,11 +183,12 @@ public class MainActivity extends Activity implements OnTouchListener,OnGestureL
         // 触发条件 ：  
   
         // X轴的坐标位移大于FLING_MIN_DISTANCE，且移动速度大于FLING_MIN_VELOCITY个像素/秒  
+		Toast.makeText(this, "Fling", Toast.LENGTH_LONG).show();
   
-        final int FLING_MIN_DISTANCE = 100, FLING_MIN_VELOCITY = 200;  
+        final int FLING_MIN_DISTANCE = 10, FLING_MIN_VELOCITY = 200;  
   
         if (e1.getX() - e2.getX() > FLING_MIN_DISTANCE  
-                && Math.abs(velocityX) > FLING_MIN_VELOCITY)  
+                /*&& Math.abs(velocityX) > FLING_MIN_VELOCITY*/)  
   
         {  
   
@@ -199,7 +201,7 @@ public class MainActivity extends Activity implements OnTouchListener,OnGestureL
         }  
   
         else if (e2.getX() - e1.getX() > FLING_MIN_DISTANCE  
-                && Math.abs(velocityX) > FLING_MIN_VELOCITY)  
+                /*&& Math.abs(velocityX) > FLING_MIN_VELOCITY*/)  
   
         {  
   
@@ -211,7 +213,7 @@ public class MainActivity extends Activity implements OnTouchListener,OnGestureL
   
         }  
   
-        return false;  
+        return true;  
 	}
 
 	 // 用户长按触摸屏，由多个MotionEvent ACTION_DOWN触发 
@@ -220,7 +222,8 @@ public class MainActivity extends Activity implements OnTouchListener,OnGestureL
 		// TODO Auto-generated method stub
 		Log.i("MyGesture", "onLongPress");  
 		  
-        Toast.makeText(this, "onLongPress", Toast.LENGTH_LONG).show();  
+        Toast.makeText(this, "onLongPress", Toast.LENGTH_SHORT).show();
+        
 	}
 
 	// 用户按下触摸屏，并拖动，由1个MotionEvent ACTION_DOWN, 多个ACTION_MOVE触发 
@@ -230,9 +233,9 @@ public class MainActivity extends Activity implements OnTouchListener,OnGestureL
 		// TODO Auto-generated method stub
 		 Log.i("MyGesture", "onScroll");  
 		  
-	        Toast.makeText(this, "onScroll", Toast.LENGTH_LONG).show();  
+	        Toast.makeText(this, "onScroll", Toast.LENGTH_SHORT).show();  
 	  
-	        return true; 
+	        return false; 
 	}
 
 	/*        
@@ -254,7 +257,7 @@ public class MainActivity extends Activity implements OnTouchListener,OnGestureL
 		  
         Toast.makeText(this, "onSingleTapUp", Toast.LENGTH_SHORT).show();  
   
-        return true;
+        return false;
 	}
 
 
