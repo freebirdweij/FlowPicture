@@ -39,7 +39,8 @@ public class MainActivity extends Activity implements OnTouchListener,OnGestureL
 	public String[] urls;
 	public Integer[] imags;
 	public ArrayList<Integer> imaglist = new ArrayList<Integer>();
-	private GestureDetector mGestureDetector;  
+	private GestureDetector mGestureDetector; 
+	private StaggeredAdapter adapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -96,10 +97,12 @@ public class MainActivity extends Activity implements OnTouchListener,OnGestureL
 		gview.setLayoutParams(new RelativeLayout.LayoutParams(dm.widthPixels,LayoutParams.MATCH_PARENT));
 		gview.setColumnCount(2);
 
-		StaggeredAdapter adapter = new StaggeredAdapter(MainActivity.this,
-				R.id.imageView1, urlst);
+		adapter = new StaggeredAdapter(MainActivity.this,
+				R.id.imageView1, urls);
+		
 		gview.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
+		
 		gview.setOnItemClickListener(new StaggeredGridView.OnItemClickListener() {
 
 			@Override
@@ -234,7 +237,8 @@ public class MainActivity extends Activity implements OnTouchListener,OnGestureL
 		 //Log.i("MyGesture", "onScroll");  
 		  
 	        //Toast.makeText(this, "onScroll", Toast.LENGTH_SHORT).show(); 
-		if(distanceX>=distanceY){
+		adapter.notifyDataSetChanged();
+		/*if(distanceX>=distanceY){
 			String[] urlst = new String[8];
 			urlst[0] = urls[8];
 			urlst[1] = urls[9];
@@ -245,12 +249,12 @@ public class MainActivity extends Activity implements OnTouchListener,OnGestureL
 			urlst[6] = urls[14];
 			urlst[7] = urls[15];
 
-			StaggeredAdapter adapter = new StaggeredAdapter(MainActivity.this,
-					R.id.imageView1, urlst);
-			gview.setAdapter(adapter);
+			//StaggeredAdapter adapter = new StaggeredAdapter(MainActivity.this,
+			//		R.id.imageView1, urlst);
+			//gview.setAdapter(adapter);
 			adapter.notifyDataSetChanged();
 			
-		}
+		}*/
 	  
 	        return true; 
 	}

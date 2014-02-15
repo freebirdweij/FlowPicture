@@ -24,7 +24,7 @@ public class MemoryCache {
 
 	public MemoryCache() {
 		// use 25% of available heap size
-		setLimit(Runtime.getRuntime().maxMemory() / 4);
+		setLimit(Runtime.getRuntime().maxMemory() / 64);
 	}
 
 	public void setLimit(long new_limit) {
@@ -49,11 +49,14 @@ public class MemoryCache {
 		try {
 			if (cache.containsKey(id))
 				size -= getSizeInBytes(cache.get(id));
+			
 			cache.put(id, bitmap);
 			size += getSizeInBytes(bitmap);
 			checkSize();
 		} catch (Throwable th) {
 			th.printStackTrace();
+			//size += getSizeInBytes(bitmap);
+			//checkSize();
 		}
 	}
 
