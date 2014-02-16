@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -57,75 +58,18 @@ public class ImageLoader {
 	}
 
 	private Bitmap getBitmap(String url) {
-		File f = fileCache.getFile(url);
+		//File f = fileCache.getFile(url);
 
 		// from SD cache
-		Bitmap b = decodeFile(f);
-		if (b != null)
-			return b;
+		//Bitmap b = decodeFile(f);
+		//if (b != null)
+		//	return b;
 
 		// from web
 		try {
-			Bitmap bitmap = null;
-			Resources res = ctx.getResources();
+			Bitmap bitmap = readBitMap(ctx, Integer.valueOf(url));
+			//Resources res = ctx.getResources();
 
-			bitmap = BitmapFactory.decodeResource(res, Integer.valueOf(url)); /*
-																			 * URL
-																			 * imageUrl
-																			 * =
-																			 * new
-																			 * URL
-																			 * (
-																			 * url
-																			 * )
-																			 * ;
-																			 * HttpURLConnection
-																			 * conn
-																			 * =
-																			 * (
-																			 * HttpURLConnection
-																			 * )
-																			 * imageUrl
-																			 * .
-																			 * openConnection
-																			 * (
-																			 * )
-																			 * ;
-																			 * conn
-																			 * .
-																			 * setConnectTimeout
-																			 * (
-																			 * 30000
-																			 * )
-																			 * ;
-																			 * conn
-																			 * .
-																			 * setReadTimeout
-																			 * (
-																			 * 30000
-																			 * )
-																			 * ;
-																			 * conn
-																			 * .
-																			 * setInstanceFollowRedirects
-																			 * (
-																			 * true
-																			 * )
-																			 * ;
-																			 * InputStream
-																			 * is
-																			 * =
-																			 * conn
-																			 * .
-																			 * getInputStream
-																			 * (
-																			 * )
-																			 * ;
-																			 */
-			/*
-			 * OutputStream os = new FileOutputStream(f); Utils.CopyStream(is,
-			 * os); os.close(); bitmap = decodeFile(f);
-			 */
 			return bitmap;
 		} catch (Throwable ex) {
 			ex.printStackTrace();
@@ -134,6 +78,49 @@ public class ImageLoader {
 			return null;
 		}
 	}
+
+	/**
+     * 以最省内存的方式读取本地资源的图片
+	 * @param context
+	 * @param resId
+	 * @return
+	 * @throws IOException 
+	 */  
+	 public static Bitmap readBitMap(Context context, int resId) throws IOException{  
+	   BitmapFactory.Options opt = new BitmapFactory.Options();  
+	   //opt.inPreferredConfig = Bitmap.Config.RGB_565;   
+	  //opt.inPurgeable = true;  
+	  opt.inJustDecodeBounds = true;  
+	  //获取资源图片  
+	  InputStream is = context.getResources().openRawResource(resId);
+	  BitmapFactory.decodeStream(is,null,opt);
+	  is.close();
+	  
+		// Find the correct scale value. It should be the power of 2.
+		final int REQUIRED_SIZE = 70;
+		int width_tmp = opt.outWidth, height_tmp = opt.outHeight;
+		int scale = 1;
+		while (true) {
+			if (width_tmp / 2 < REQUIRED_SIZE
+					|| height_tmp / 2 < REQUIRED_SIZE)
+				break;
+			width_tmp /= 2;
+			height_tmp /= 2;
+			scale *= 2;
+		}
+
+		if (scale >= 2) {
+			scale /= 2;
+		}
+
+		// decode with inSampleSize
+		BitmapFactory.Options o2 = new BitmapFactory.Options();
+		o2.inSampleSize = scale;
+		InputStream stream2 = context.getResources().openRawResource(resId);
+		Bitmap bitmap = BitmapFactory.decodeStream(stream2, null, o2);
+		stream2.close();
+	   return bitmap;  
+	  }
 
 	// decodes image and scales it to reduce memory consumption
 	private Bitmap decodeFile(File f) {
