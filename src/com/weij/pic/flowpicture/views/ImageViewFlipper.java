@@ -76,6 +76,7 @@ public class ImageViewFlipper extends TouchActivity {
 	private int currentIndex = 0;
 	private int maxIndex = 0;
 	private ImageView currentImageView = null;
+	private boolean revorce = true;
 	
 	private float mMinZoomScale=1;
 	private Integer[] images;
@@ -262,8 +263,46 @@ public class ImageViewFlipper extends TouchActivity {
 			case 1: view = (ImageView)findViewById(R.id.one); break;
 			case 2:view = (ImageView)findViewById(R.id.two); break;				
 			}
-			 
-			resetImage(view,view.getDrawable());
+			
+	        matrix = new Matrix();
+	        //matrix.setTranslate(1f, 1f);
+	        float scale = 1;
+	        float transX;
+	        float transY;
+	        if(revorce){
+        	scale = (float)getWindowManager().getDefaultDisplay().getHeight()/(float)view.getDrawable().getIntrinsicHeight();  
+        	//mMinZoomScale = scale;
+        	//matrix.postScale(scale,scale);
+        
+        	//view.setImageMatrix(matrix);
+
+            transX = (float) getWindowManager().getDefaultDisplay().getWidth()/2
+                    - (float)(view.getDrawable().getIntrinsicWidth()*scale)/2;
+            transY = (float) 
+            		getWindowManager().getDefaultDisplay().getHeight()/2
+            		- (float)(view.getDrawable().getIntrinsicHeight()*scale)/2;
+            revorce = false;
+	        }
+            else{
+            	scale = (float)view.getDrawable().getIntrinsicHeight()/(float)getWindowManager().getDefaultDisplay().getHeight();  
+            	//mMinZoomScale = scale;
+            	//matrix.postScale(scale,scale);
+            
+            	//view.setImageMatrix(matrix);
+
+                transX = (float)(view.getDrawable().getIntrinsicWidth()*scale)/2
+                        - (float) getWindowManager().getDefaultDisplay().getWidth()/2;
+                transY = (float)(view.getDrawable().getIntrinsicHeight()*scale)/2
+                		- (float) 
+                		getWindowManager().getDefaultDisplay().getHeight()/2;
+                revorce = true;
+            	
+            }
+            matrix.postScale(scale,scale,transX,transY);
+            //matrix.postTranslate(transX,transY);
+            view.setImageMatrix(matrix);
+            System.gc();
+			//resetImage(view,view.getDrawable());
 			return true;
 		}
 		
