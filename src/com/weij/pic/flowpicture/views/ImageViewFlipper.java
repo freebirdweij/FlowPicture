@@ -32,6 +32,43 @@ import com.weij.pic.flowpicture.R;
 @TargetApi(Build.VERSION_CODES.FROYO)
 public class ImageViewFlipper extends TouchActivity {
 	
+	@Override
+	public void finish() {
+		// TODO Auto-generated method stub
+		super.finish();
+		gestureDetector = null;
+		gestureListener = null;
+		slideLeftIn = null;
+		slideLeftOut = null;
+		slideRightIn = null;
+		slideRightOut = null;
+		viewFlipper = null;
+		ImageList = null;
+		currentImageView = null;
+		images = null;
+		output = null;
+		writer = null;
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		gestureDetector = null;
+		gestureListener = null;
+		slideLeftIn = null;
+		slideLeftOut = null;
+		slideRightIn = null;
+		slideRightOut = null;
+		viewFlipper = null;
+		ImageList = null;
+		currentImageView = null;
+		images = null;
+		output = null;
+		writer = null;
+	}
+
+
 	private static final int EXIT = 0;
 	private static final int SWIPE_MIN_DISTANCE = 120;
 	private static final int SWIPE_MAX_OFF_PATH = 250;
@@ -52,9 +89,9 @@ public class ImageViewFlipper extends TouchActivity {
 	private int maxIndex = 0;
 	private ImageView currentImageView = null;
 	private boolean revorce = true;
+	private String[] images;
 	
 	private float mMinZoomScale=1;
-	private Integer[] images;
 
 	FileOutputStream output = null;
 	OutputStreamWriter writer = null;
@@ -105,8 +142,9 @@ public class ImageViewFlipper extends TouchActivity {
 		}*/
 		Intent intent = getIntent();
 		//int position = intent.getIntExtra("position", 0);
-		ArrayList<Integer> result = intent.getIntegerArrayListExtra("imaglist");
-		images = new Integer[result.size()];
+		ArrayList<String> result = intent.getStringArrayListExtra("imaglist");
+		
+		images = new String[result.size()];
 		images = result.toArray(images);
 		
 		if (images == null) {
@@ -143,7 +181,7 @@ public class ImageViewFlipper extends TouchActivity {
 		//iv.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.FILL_PARENT));;
 		//Bitmap bitmap =  readBitMap(this,images[currentIndex]);
 		ImageView iv = (ImageView) findViewById(R.id.zero);
-		Drawable d = Drawable.createFromStream(getResources().openRawResource(images[currentIndex]), null);
+		Drawable d = Drawable.createFromStream(getResources().openRawResource(Integer.valueOf(images[currentIndex])), null);
 		iv.setImageDrawable(d);
 		resetImage(iv,d);
 		System.gc();
@@ -306,7 +344,7 @@ public class ImageViewFlipper extends TouchActivity {
 					//Drawable d = Drawable.createFromPath(ImageList
 					//		.get(currentIndex));
 					ImageView iv;
-					Drawable d = Drawable.createFromStream(getResources().openRawResource(images[currentIndex]), null);
+					Drawable d = Drawable.createFromStream(getResources().openRawResource(Integer.valueOf(images[currentIndex])), null);
 					
 					if (currentView == 0) {
 						currentView = 1;
@@ -351,7 +389,7 @@ public class ImageViewFlipper extends TouchActivity {
 					//Drawable d = Drawable.createFromPath(ImageList
 					//		.get(currentIndex));
 					ImageView iv;
-					Drawable d = Drawable.createFromStream(getResources().openRawResource(images[currentIndex]), null);
+					Drawable d = Drawable.createFromStream(getResources().openRawResource(Integer.valueOf(images[currentIndex])), null);
 					if (currentView == 0) {
 						currentView = 2;
 						iv = (ImageView) findViewById(R.id.two);

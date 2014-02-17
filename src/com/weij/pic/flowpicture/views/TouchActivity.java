@@ -25,7 +25,41 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 public abstract class TouchActivity extends Activity {
-   private static final String TAG = "Touch";
+   @Override
+	public void finish() {
+		// TODO Auto-generated method stub
+		super.finish();
+		matrix = null;
+		savedMatrix = null;
+		   start = null;
+		   refLineStart = null;
+		   refLineEnd = null;
+		   prevLineStart = null;
+		   prevLineEnd = null;
+		   newStart = null;
+		   newEnd = null;
+		   mid = null;
+		   mRotateAngle = null;
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		matrix = null;
+		savedMatrix = null;
+		   start = null;
+		   refLineStart = null;
+		   refLineEnd = null;
+		   prevLineStart = null;
+		   prevLineEnd = null;
+		   newStart = null;
+		   newEnd = null;
+		   mid = null;
+		   mRotateAngle = null;
+	}
+
+private static final String TAG = "Touch";
    // These matrices will be used to move and zoom image
    protected Matrix matrix = new Matrix();
    Matrix savedMatrix = new Matrix();

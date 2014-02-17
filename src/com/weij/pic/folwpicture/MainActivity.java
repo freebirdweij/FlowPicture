@@ -17,17 +17,28 @@ import com.weij.pic.flowpicture.views.ImageViewFlipper;
 
 public class MainActivity extends Activity {
 
-	private StaggeredGridView gview;
-	public String[] urls;
-	public Integer[] imags;
-	public ArrayList<Integer> imaglist = new ArrayList<Integer>();
+	@Override
+	public void finish() {
+		// TODO Auto-generated method stub
+		super.finish();
+		imaglist = null;
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		imaglist = null;
+	}
+
+	public ArrayList<String> imaglist = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		gview = (StaggeredGridView) findViewById(R.id.gridView1);
+		StaggeredGridView gview = (StaggeredGridView) findViewById(R.id.gridView1);
 		int margin = getResources().getDimensionPixelSize(R.dimen.margin);
 
 		gview.setItemMargin(margin); // set the GridView margin
@@ -36,12 +47,11 @@ public class MainActivity extends Activity {
 												// as well
 
 		Field[] fields = R.raw.class.getDeclaredFields();
-		List<String> list = new ArrayList<String>();
+	    imaglist = new ArrayList<String>();
 		for (Field field : fields) {
 			
 				try {
-					list.add(String.valueOf(field.getInt(field.getName())));
-					imaglist.add(field.getInt(field.getName()));
+					imaglist.add(String.valueOf(field.getInt(field.getName())));
 				} catch (IllegalArgumentException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -50,8 +60,8 @@ public class MainActivity extends Activity {
 					e.printStackTrace();
 				}
 		}
-		urls = new String[list.size()];
-		urls = list.toArray(urls);
+		String[] urls = new String[imaglist.size()];
+		urls = imaglist.toArray(urls);
 
 		// DisplayMetrics dm = getResources().getDisplayMetrics();
 		// gview.setLayoutParams(new
@@ -74,7 +84,7 @@ public class MainActivity extends Activity {
 				SharedPreferences indexPrefs = getSharedPreferences(
 						"currentIndex", MODE_PRIVATE);
 
-				bundle.putIntegerArrayList("imaglist", imaglist);
+				bundle.putStringArrayList("imaglist", imaglist);
 				intent.putExtras(bundle);
 				SharedPreferences.Editor indexEditor = indexPrefs.edit();
 				indexEditor.putInt("currentIndex", position);

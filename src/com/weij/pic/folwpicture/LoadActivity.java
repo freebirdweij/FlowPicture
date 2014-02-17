@@ -19,7 +19,7 @@ public class LoadActivity extends Activity {
 	private final ScheduledExecutorService scheduler = Executors
 			.newScheduledThreadPool(1);
 	// 设置界面跳转时间为5秒
-	int time = 5;
+	int time = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
