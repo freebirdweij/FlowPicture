@@ -35,12 +35,10 @@ public class MainActivity extends Activity {
 		gview.setPadding(margin, 0, margin, 0); // have the margin on the sides
 												// as well
 
-		Field[] fields = R.drawable.class.getDeclaredFields();
+		Field[] fields = R.raw.class.getDeclaredFields();
 		List<String> list = new ArrayList<String>();
 		for (Field field : fields) {
-			if (!"ic_launcher".equals(field.getName())
-					&& !"icon".equals(field.getName())
-					&& !"wait".equals(field.getName())) {
+			
 				try {
 					list.add(String.valueOf(field.getInt(field.getName())));
 					imaglist.add(field.getInt(field.getName()));
@@ -51,7 +49,6 @@ public class MainActivity extends Activity {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
 		}
 		urls = new String[list.size()];
 		urls = list.toArray(urls);

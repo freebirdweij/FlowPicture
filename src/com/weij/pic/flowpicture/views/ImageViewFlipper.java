@@ -354,6 +354,7 @@ public class ImageViewFlipper extends TouchActivity {
 					Log.v("ImageViewFlipper", "Current View: " + currentView);
 					viewFlipper.showNext();
 				
+					revorce = true;
 					return true;
 				} else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE
 						&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
@@ -391,6 +392,7 @@ public class ImageViewFlipper extends TouchActivity {
 					resetImage(iv,d);
 					Log.v("ImageViewFlipper", "Current View: " + currentView);
 					viewFlipper.showPrevious();
+					revorce = true;
 					return true;
 				}
 			} catch (Exception e) {
