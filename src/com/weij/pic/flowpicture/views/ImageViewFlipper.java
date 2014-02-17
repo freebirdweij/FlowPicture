@@ -1,58 +1,33 @@
 package com.weij.pic.flowpicture.views;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.Vector;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
-
-import com.weij.pic.flowpicture.R;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.Surface;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
-import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
+
+import com.weij.pic.flowpicture.R;
 
 @TargetApi(Build.VERSION_CODES.FROYO)
 public class ImageViewFlipper extends TouchActivity {
@@ -175,6 +150,7 @@ public class ImageViewFlipper extends TouchActivity {
 		
 		gestureDetector = new GestureDetector(new MyGestureDetector());
 		gestureListener = new View.OnTouchListener() {
+			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				if (gestureDetector.onTouchEvent(event)) {
 					return true;
@@ -193,6 +169,7 @@ public class ImageViewFlipper extends TouchActivity {
 		return true;
 	}
 	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case EXIT:
@@ -203,6 +180,7 @@ public class ImageViewFlipper extends TouchActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	@Override
 	protected void onPause() {
 		super.onPause();
 
@@ -214,6 +192,7 @@ public class ImageViewFlipper extends TouchActivity {
 		indexEditor.commit();
 	}
 	
+	@Override
 	protected void onResume() {
 		super.onResume();
 		SharedPreferences indexPrefs = getSharedPreferences("currentIndex",
@@ -277,10 +256,10 @@ public class ImageViewFlipper extends TouchActivity {
         	//view.setImageMatrix(matrix);
 
             transX = (float) getWindowManager().getDefaultDisplay().getWidth()/2
-                    - (float)(view.getDrawable().getIntrinsicWidth()*scale)/2;
+                    - view.getDrawable().getIntrinsicWidth()*scale/2;
             transY = (float) 
             		getWindowManager().getDefaultDisplay().getHeight()/2
-            		- (float)(view.getDrawable().getIntrinsicHeight()*scale)/2;
+            		- view.getDrawable().getIntrinsicHeight()*scale/2;
             revorce = false;
 	        }
             else{
@@ -290,9 +269,9 @@ public class ImageViewFlipper extends TouchActivity {
             
             	//view.setImageMatrix(matrix);
 
-                transX = (float)(view.getDrawable().getIntrinsicWidth()*scale)/2
+                transX = view.getDrawable().getIntrinsicWidth()*scale/2
                         - (float) getWindowManager().getDefaultDisplay().getWidth()/2;
-                transY = (float)(view.getDrawable().getIntrinsicHeight()*scale)/2
+                transY = view.getDrawable().getIntrinsicHeight()*scale/2
                 		- (float) 
                 		getWindowManager().getDefaultDisplay().getHeight()/2;
                 revorce = true;
@@ -439,12 +418,12 @@ public class ImageViewFlipper extends TouchActivity {
         	
         	
         float transX = (float) getWindowManager().getDefaultDisplay().getWidth()/2
-                                - (float)(draw.getIntrinsicWidth()*scale)/2
+                                - draw.getIntrinsicWidth()*scale/2
                                 ;
         	
         float transY = (float) 
         		getWindowManager().getDefaultDisplay().getHeight()/2
-                                    - (float)(draw.getIntrinsicHeight()*scale)/2
+                                    - draw.getIntrinsicHeight()*scale/2
                                     
                                     ;
         matrix.postTranslate(transX,transY);

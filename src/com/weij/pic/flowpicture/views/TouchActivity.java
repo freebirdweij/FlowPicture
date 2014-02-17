@@ -9,7 +9,6 @@
 package com.weij.pic.flowpicture.views;
 
 
-import android.R;
 import android.app.Activity;
 import android.graphics.Matrix;
 import android.graphics.PointF;
@@ -23,7 +22,6 @@ import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 
 public abstract class TouchActivity extends Activity {

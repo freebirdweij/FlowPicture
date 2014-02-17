@@ -16,19 +16,23 @@ public class EclairMotionEvent extends WrapMotionEvent {
       super(event);
    }
 
-   public float getX(int pointerIndex) {
+   @Override
+public float getX(int pointerIndex) {
       return event.getX(pointerIndex);
    }
 
-   public float getY(int pointerIndex) {
+   @Override
+public float getY(int pointerIndex) {
       return event.getY(pointerIndex);
    }
 
-   public int getPointerCount() {
+   @Override
+public int getPointerCount() {
       return event.getPointerCount();
    }
 
-   public int getPointerId(int pointerIndex) {
+   @Override
+public int getPointerId(int pointerIndex) {
       return event.getPointerId(pointerIndex);
    }
 }
