@@ -154,6 +154,7 @@ public class ImageLoader {
 			FileInputStream stream2 = new FileInputStream(f);
 			Bitmap bitmap = BitmapFactory.decodeStream(stream2, null, o2);
 			stream2.close();
+			
 			return bitmap;
 		} catch (FileNotFoundException e) {
 		} catch (IOException e) {
@@ -191,6 +192,7 @@ public class ImageLoader {
 					return;
 				BitmapDisplayer bd = new BitmapDisplayer(bmp, photoToLoad);
 				handler.post(bd);
+			
 			} catch (Throwable th) {
 				th.printStackTrace();
 			}
@@ -228,6 +230,7 @@ public class ImageLoader {
 	public void clearCache() {
 		memoryCache.clear();
 		fileCache.clear();
+		System.gc();
 	}
 
 }

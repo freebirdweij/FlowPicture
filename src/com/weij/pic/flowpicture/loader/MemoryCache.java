@@ -90,6 +90,7 @@ public class MemoryCache {
 			// http://code.google.com/p/osmdroid/issues/detail?id=78
 			cache.clear();
 			size = 0;
+			System.gc();
 		} catch (NullPointerException ex) {
 			ex.printStackTrace();
 		}

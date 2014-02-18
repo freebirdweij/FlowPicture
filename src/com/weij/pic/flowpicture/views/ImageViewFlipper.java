@@ -33,6 +33,13 @@ import com.weij.pic.flowpicture.R;
 public class ImageViewFlipper extends TouchActivity {
 	
 	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		System.gc();
+	}
+
+	@Override
 	public void finish() {
 		// TODO Auto-generated method stub
 		super.finish();
@@ -48,6 +55,7 @@ public class ImageViewFlipper extends TouchActivity {
 		images = null;
 		output = null;
 		writer = null;
+		System.gc();
 	}
 
 	@Override
@@ -66,6 +74,7 @@ public class ImageViewFlipper extends TouchActivity {
 		images = null;
 		output = null;
 		writer = null;
+		System.gc();
 	}
 
 

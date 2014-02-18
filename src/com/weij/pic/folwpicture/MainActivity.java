@@ -18,10 +18,18 @@ import com.weij.pic.flowpicture.views.ImageViewFlipper;
 public class MainActivity extends Activity {
 
 	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		System.gc();
+	}
+
+	@Override
 	public void finish() {
 		// TODO Auto-generated method stub
 		super.finish();
 		imaglist = null;
+		System.gc();
 	}
 
 	@Override
@@ -29,6 +37,7 @@ public class MainActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		imaglist = null;
+		System.gc();
 	}
 
 	public ArrayList<String> imaglist = null;
@@ -72,6 +81,7 @@ public class MainActivity extends Activity {
 
 		gview.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
+		System.gc();
 
 		gview.setOnItemClickListener(new StaggeredGridView.OnItemClickListener() {
 
@@ -90,6 +100,7 @@ public class MainActivity extends Activity {
 				indexEditor.putInt("currentIndex", position);
 				indexEditor.commit();
 				startActivity(intent);
+				System.gc();
 			}
 		});
 

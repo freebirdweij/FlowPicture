@@ -16,6 +16,20 @@ import com.weij.pic.flowpicture.waps.LoadingPopAd;
 
 public class LoadActivity extends Activity {
 
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		System.gc();
+	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		System.gc();
+	}
+
 	private final ScheduledExecutorService scheduler = Executors
 			.newScheduledThreadPool(1);
 	// 设置界面跳转时间为5秒
