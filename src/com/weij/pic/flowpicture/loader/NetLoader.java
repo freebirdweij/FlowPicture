@@ -3,13 +3,16 @@ package com.weij.pic.flowpicture.loader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -66,7 +69,14 @@ public class NetLoader {
 
 		// from Net
 		try {
-			Bitmap bitmap = BitmapFactory.decodeStream(BucketCache.getInputStreamByObject(url));
+			//InputStream is = BucketCache.getInputStreamByObject(url);
+			
+            //OutputStream os = new FileOutputStream(f);
+            //Utils.CopyStream(is, os);
+            //Thread.sleep(30000);
+            //os.close();
+			BucketCache.putObjectToDestFile(url, f);
+            Bitmap bitmap = decodeFile(f);
 			//Resources res = ctx.getResources();
 
 			return bitmap;

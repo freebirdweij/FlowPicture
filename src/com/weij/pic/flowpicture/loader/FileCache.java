@@ -18,7 +18,11 @@ public class FileCache {
 					android.os.Environment.getExternalStorageDirectory(),
 					"LazyList");
 		else
-			cacheDir = context.getCacheDir();*/
+			cacheDir = context.getCacheDir();
+		
+		if (!cacheDir.exists())
+			cacheDir.mkdirs();*/
+
 		String dirPath = context.getFilesDir().getParent().concat(File.separator).concat(".picture");
 		cacheDir = new File(dirPath);
 		

@@ -55,6 +55,22 @@ public class BucketCache {
 	static String object = "/first-object";
 	static File destFile = new File("c:/test");
 	
+	public static void putObjectToDestFile(String obj,File dest)
+	{
+		BCSCredentials credentials = new BCSCredentials(accessKey, secretKey);
+		BaiduBCS baiduBCS = new BaiduBCS(credentials, host);
+		
+		// baiduBCS.setDefaultEncoding("GBK");
+		baiduBCS.setDefaultEncoding("UTF-8"); // Default UTF-8
+		try {
+			getObjectWithDestFile(baiduBCS, obj, dest);
+		} catch (BCSServiceException e) {
+			Log.i(TAG,"Bcs return:" + e.getBcsErrorCode() + ", " + e.getBcsErrorMessage() + ", RequestId=" + e.getRequestId());
+		} catch (BCSClientException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static InputStream getInputStreamByObject(String obj)
 	{
 		BCSCredentials credentials = new BCSCredentials(accessKey, secretKey);
@@ -284,6 +300,11 @@ public class BucketCache {
 	private static void getObjectWithDestFile(BaiduBCS baiduBCS) {
 		GetObjectRequest getObjectRequest = new GetObjectRequest(bucket, object);
 		baiduBCS.getObject(getObjectRequest, destFile);
+	}
+
+	private static void getObjectWithDestFile(BaiduBCS baiduBCS,String obj,File dest) {
+		GetObjectRequest getObjectRequest = new GetObjectRequest(bucket, obj);
+		baiduBCS.getObject(getObjectRequest, dest);
 	}
 
 	private static DownloadObject getDownloadObject(BaiduBCS baiduBCS,String obj) {
