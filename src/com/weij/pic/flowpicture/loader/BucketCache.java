@@ -154,6 +154,8 @@ public class BucketCache {
 			for (ObjectSummary os1 : list1){
 				if(os1.isDir()){
 					is = is.concat(os1.getName().substring(prefix1.length()));				
+				}else{
+					key = key.concat(os1.getName().substring(prefix1.length()));
 				}
 			}
 			map.put(key, is);
@@ -184,6 +186,7 @@ public class BucketCache {
 			String key = os.getName();
 			List<ObjectSummary> list1 = listObject(baiduBCS,prefix1);
 			Integer is = list1.size();
+			if(is>0) key = key.concat(list1.get(0).getName().substring(prefix1.length()));
 			map.put(key, is);
 			
 		}

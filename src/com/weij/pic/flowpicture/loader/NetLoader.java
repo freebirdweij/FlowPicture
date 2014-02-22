@@ -57,16 +57,16 @@ public class NetLoader {
 	}
 
 	private Bitmap getBitmap(String url) {
-		//File f = fileCache.getFile(url);
+		File f = fileCache.getFile(url);
 
-		// from SD cache
-		//Bitmap b = decodeFile(f);
-		//if (b != null)
-		//	return b;
+		 //from SD cache
+		Bitmap b = decodeFile(f);
+		if (b != null)
+		 return b;
 
-		// from web
+		// from Net
 		try {
-			Bitmap bitmap = readBitMap(ctx, Integer.valueOf(url));
+			Bitmap bitmap = BitmapFactory.decodeStream(BucketCache.getInputStreamByObject(url));
 			//Resources res = ctx.getResources();
 
 			return bitmap;
@@ -186,7 +186,7 @@ public class NetLoader {
 			try {
 				if (imageViewReused(photoToLoad))
 					return;
-				Bitmap bmp = BitmapFactory.decodeStream(BucketCache.getInputStreamByObject(photoToLoad.url));
+				Bitmap bmp = getBitmap(photoToLoad.url);
 				memoryCache.put(photoToLoad.url, bmp);
 				if (imageViewReused(photoToLoad))
 					return;

@@ -1,10 +1,9 @@
 package com.weij.pic.folwpicture;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map.Entry;
 
 import com.weij.pic.flowpicture.R;
-import com.weij.pic.flowpicture.loader.ImageLoader;
+import com.weij.pic.flowpicture.loader.NetLoader;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,19 +17,19 @@ import android.widget.TextView;
 public class LazyAdapter extends BaseAdapter {
     
     private Activity activity;
-    private ArrayList<HashMap<String, String>> data;
+    private Entry<String, String>[] data;
     private static LayoutInflater inflater=null;
-    public ImageLoader imageLoader; //用来下载图片的类，后面有介绍
+    public NetLoader imageLoader; //用来下载图片的类，后面有介绍
     
-    public LazyAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
+    public LazyAdapter(Activity a,Entry<String, String>[] d) {
         activity = a;
         data=d;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        imageLoader=new ImageLoader(activity.getApplicationContext());
+        imageLoader=new NetLoader(activity.getApplicationContext());
     }
 
     public int getCount() {
-        return data.size();
+        return data.length;
     }
 
     public Object getItem(int position) {
@@ -48,17 +47,16 @@ public class LazyAdapter extends BaseAdapter {
 
         TextView title = (TextView)vi.findViewById(R.id.title); // 标题
         TextView artist = (TextView)vi.findViewById(R.id.artist); // 歌手名
-        TextView duration = (TextView)vi.findViewById(R.id.duration); // 时长
+        //TextView duration = (TextView)vi.findViewById(R.id.duration); // 时长
         ImageView thumb_image=(ImageView)vi.findViewById(R.id.list_image); // 缩略图
         
-        HashMap<String, String> song = new HashMap<String, String>();
-        song = data.get(position);
+        Entry<String, String> dir = data[position];;
         
         // 设置ListView的相关值
-        title.setText(song.get(CustomizedListView.KEY_TITLE));
-        artist.setText(song.get(CustomizedListView.KEY_ARTIST));
-        duration.setText(song.get(CustomizedListView.KEY_DURATION));
-        imageLoader.DisplayImage(song.get(CustomizedListView.KEY_THUMB_URL), thumb_image);
+        title.setText(dir.getKey());
+        artist.setText(dir.getValue());
+        //duration.setText(song.get(CustomizedListView.KEY_DURATION));
+        imageLoader.DisplayImage(dir.getKey(), thumb_image);
         return vi;
     }
 }
