@@ -1,4 +1,4 @@
-package com.weij.pic.folwpicture;
+package com.weij.pic.flowpicture;
 
 import android.content.Context;
 import android.view.LayoutInflater;

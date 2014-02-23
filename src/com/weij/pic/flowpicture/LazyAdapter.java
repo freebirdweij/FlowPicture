@@ -1,4 +1,4 @@
-package com.weij.pic.folwpicture;
+package com.weij.pic.flowpicture;
 
 import java.util.Map.Entry;
 
@@ -33,7 +33,7 @@ public class LazyAdapter extends BaseAdapter {
     }
 
     public Object getItem(int position) {
-        return position;
+        return data[position].getKey();
     }
 
     public long getItemId(int position) {
@@ -53,7 +53,8 @@ public class LazyAdapter extends BaseAdapter {
         Entry<String, String> dir = data[position];;
         
         // 设置ListView的相关值
-        title.setText(dir.getKey());
+        String[] str = dir.getKey().split("/");
+        title.setText(str[2]);
         artist.setText(dir.getValue());
         //duration.setText(song.get(CustomizedListView.KEY_DURATION));
         imageLoader.DisplayImage(dir.getKey(), thumb_image);

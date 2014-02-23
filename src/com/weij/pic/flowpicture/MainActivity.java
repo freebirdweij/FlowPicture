@@ -1,4 +1,4 @@
-package com.weij.pic.folwpicture;
+package com.weij.pic.flowpicture;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

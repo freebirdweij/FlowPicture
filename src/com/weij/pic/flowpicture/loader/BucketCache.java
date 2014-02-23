@@ -115,6 +115,32 @@ public class BucketCache {
 		return map;
 	}
 	
+	public static Map<String, Long> listOnlyObjectByDir(String dir)
+	{
+		BCSCredentials credentials = new BCSCredentials(accessKey, secretKey);
+		BaiduBCS baiduBCS = new BaiduBCS(credentials, host);
+		
+		// baiduBCS.setDefaultEncoding("GBK");
+		baiduBCS.setDefaultEncoding("UTF-8"); // Default UTF-8
+		String prefix = dir;
+		Map<String, Long> map = new HashMap<String, Long>();
+		List<ObjectSummary> list = null;
+		try {
+			list = listOnlyObject(baiduBCS,prefix);
+		for (ObjectSummary os : list) {
+			String key = os.getName();
+			Long l = os.getSize();
+			map.put(key, l);
+			
+		}
+		} catch (BCSServiceException e) {
+			Log.i(TAG,"Bcs return:" + e.getBcsErrorCode() + ", " + e.getBcsErrorMessage() + ", RequestId=" + e.getRequestId());
+		} catch (BCSClientException e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+	
 	public static Map<String, InputStream> listFirstDir(String dir)
 	{
 		BCSCredentials credentials = new BCSCredentials(accessKey, secretKey);

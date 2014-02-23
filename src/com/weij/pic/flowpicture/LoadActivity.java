@@ -1,4 +1,4 @@
-package com.weij.pic.folwpicture;
+package com.weij.pic.flowpicture;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

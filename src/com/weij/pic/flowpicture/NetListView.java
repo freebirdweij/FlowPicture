@@ -1,4 +1,4 @@
-package com.weij.pic.folwpicture;
+package com.weij.pic.flowpicture;
 
 
 import java.util.ArrayList;
@@ -14,15 +14,18 @@ import org.w3c.dom.NodeList;
 import com.weij.pic.flowpicture.R;
 import com.weij.pic.flowpicture.loader.BucketCache;
 import com.weij.pic.flowpicture.loader.XMLParser;
+import com.weij.pic.flowpicture.views.ImageViewFlipper;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class CustomizedListView extends Activity {
+public class NetListView extends Activity {
 	// 所有的静态变量
 	// XML 节点
 	static final String KEY_SONG = "song"; // parent node
@@ -59,8 +62,18 @@ public class CustomizedListView extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-							
-                        //这里可以自由发挥，比如播放一首歌曲等等
+				Intent intent = new Intent(NetListView.this,
+						NetGridDir.class);
+				
+				SharedPreferences indexPrefs = getSharedPreferences(
+						"currentDir", MODE_PRIVATE);
+
+				SharedPreferences.Editor indexEditor = indexPrefs.edit();
+				String[] str = ((String) parent.getAdapter().getItem(position)).split("/");
+				indexEditor.putString("currentDir","/".concat(str[0]).concat("/").concat(str[1]).concat("/").concat(str[2]).concat("/"));
+				indexEditor.commit();
+				startActivity(intent);
+				System.gc();
 			}
 		});		
 	}	

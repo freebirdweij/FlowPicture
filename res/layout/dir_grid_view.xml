@@ -1,0 +1,19 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <com.weij.pic.flowpicture.views.ScaleImageView
+            android:id="@+id/dirImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@null" />
+        <TextView
+        android:id="@+id/dirText"  
+        android:layout_width="wrap_content"   
+        android:layout_height="wrap_content"  
+        android:text="雨松MOMO"  
+        android:background="#FF0000"  
+        android:textColor="#000000"    
+        android:textSize="18dip" />  
+</FrameLayout>
+
